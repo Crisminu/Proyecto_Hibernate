@@ -10,6 +10,6 @@
         <property name="connection.username">root</property>
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">true</property>
-        <mapping class="es.cristina.hb1.Seguro"/>
+        <mapping class="es.cristina.hb2.Seguro"/>
     </session-factory>
 </hibernate-configuration>

@@ -20,6 +20,25 @@ public class Seguro1 implements Serializable {
 
     private Date fechaCreacion;
 
+    public Seguro1() {
+
+    }
+
+    public Seguro1(int idSeguro, int edad, int numHijos, String nif, String nombre, String ape1, String ape2, Date fechaCreacion) {
+        this.idSeguro = idSeguro;
+        this.edad = edad;
+        this.numHijos = numHijos;
+        this.nif = nif;
+        this.nombre = nombre;
+        this.ape1 = ape1;
+        this.ape2 = ape2;
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public Seguro1(int idSeguro) {
+        this.idSeguro = idSeguro;
+    }
+
     public int getIdSeguro() {
         return idSeguro;
     }

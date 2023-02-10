@@ -1,8 +1,9 @@
-package es.cristina.hib6;
+package es.cristina.hib7;
 
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -23,6 +24,7 @@ public class Seguro implements Serializable {
     private int edad;
     @Enumerated(EnumType.ORDINAL)
     private Sexo sexo;
+    @Column(name = "casado")
     private boolean casado;
     private int numHijos;
     private boolean embarazada;
@@ -53,10 +55,6 @@ public class Seguro implements Serializable {
         this.coberturas = coberturas;
         this.enfermedades = enfermedades;
         this.fechaCreacion = fechaCreacion;
-    }
-
-    public Seguro(int idSeguro) {
-        this.idSeguro = idSeguro;
     }
 
     public int getIdSeguro() {
@@ -155,11 +153,11 @@ public class Seguro implements Serializable {
         this.enfermedades = enfermedades;
     }
 
-    public java.util.Date getFechaCreacion() {
+    public Date getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(java.util.Date fechaCreacion) {
+    public void setFechaCreacion(Date fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 

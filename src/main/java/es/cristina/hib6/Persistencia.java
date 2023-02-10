@@ -1,4 +1,4 @@
-package es.cristina.hib5;
+package es.cristina.hib6;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class Persistencia {
     protected SessionFactory sf;
     protected void configuracion() {
-        final StandardServiceRegistry registro = new StandardServiceRegistryBuilder().configure("hibernate5.cfg.xml").build();
+        final StandardServiceRegistry registro = new StandardServiceRegistryBuilder().configure("hibernate6.cfg.xml").build();
         try {
             sf = new MetadataSources(registro).buildMetadata().buildSessionFactory();
         } catch (Exception e) {
@@ -36,18 +36,15 @@ public class Persistencia {
         int opcion;
         boolean acceso = true;
         while(acceso){
-            System.out.println("Base de datos 'seguros'");
+            System.out.println("Hibernate 6. Anotaciones");
             System.out.println("1. Añadir seguro");
             System.out.println("2. Listar seguros");
-            System.out.println("3. Actualizar datos de seguro");
-            System.out.println("4. Borrar seguro");
-            System.out.println("5. Datos de ejemplo");
-            System.out.println("6. Salir");
+            System.out.println("3. Salir");
             System.out.print("Introduzca una opción: ");
             opcion = sc.nextInt();
             switch (opcion){
                 case 1 -> {
-                   persistencia.crearSeguro(sc);
+                   persistencia.datosEjemplo();
                    System.out.println("Seguro creado");
                 }
                 case 2 -> {
@@ -55,22 +52,7 @@ public class Persistencia {
                     int idSeguro = sc.nextInt();
                     persistencia.leerSeguro(idSeguro);
                 }
-                case 3 -> {
-                    System.out.println("Introduce el código del seguro a actualizar:");
-                    int idSeguro = sc.nextInt();
-                    persistencia.actualizarSeguro(idSeguro,sc);
-                    System.out.println("Seguro actualizado");
-                }
-                case 4 -> {
-                    System.out.print("Introduzca código de seguro: ");
-                    int idSeguro = sc.nextInt();
-                    persistencia.borrarSeguro(idSeguro);
-                    System.out.println("Seguro borrado");
-                }
                 case 5 -> {
-                    persistencia.datosEjemplo();
-                }
-                case 6 -> {
                     acceso = false;
                     System.out.println("Fin de la ejecución");
                 }
@@ -98,118 +80,6 @@ public class Persistencia {
             System.out.println("Descripciónn de la asistencia: " + asistenciaMedica.getBreveDescripcion());
             System.out.println("Lugar de la asistencia: " + asistenciaMedica.getLugar());
         }
-        sesion.close();
-    }
-    protected void crearSeguro(Scanner sc){
-        Seguro seguro = new Seguro();
-        Session sesion = sf.openSession();
-        sesion.beginTransaction();
-
-        System.out.print("Introduzca el DNI: ");
-        String nif = sc.next();
-        //seguro.setNif(nif);
-
-        System.out.print("Introduzca el nombre: ");
-        String nombre = sc.next();
-        seguro.setNombre(nombre);
-
-        System.out.print("Introduzca primer apellido: ");
-        String ape1 = sc.next();
-        seguro.setApe1(ape1);
-
-        System.out.print("Introduzca segundo apellido: ");
-        String ape2 = sc.next();
-        seguro.setApe2(ape2);
-
-        System.out.print("Introduzca la edad: ");
-        int edad = sc.nextInt();
-        seguro.setEdad(edad);
-
-        System.out.print("Introduzca el número de hijos: ");
-        int numHijos = sc.nextInt();
-        seguro.setNumHijos(numHijos);
-
-        Date dateTime = new Date(System.currentTimeMillis());
-        seguro.setFechaCreacion(dateTime);
-
-        generateAsistencia(seguro, sc);
-        sesion.persist(seguro);
-        sesion.getTransaction().commit();
-        sesion.close();
-
-    }
-    private void generateAsistencia(Seguro seguro, Scanner sc){
-        List<AsistenciaMedica> asistenciasMedicas = new ArrayList<>();
-        boolean acceso = true;
-        while (acceso) {
-            System.out.println("1. Añadir una asistencia médica");
-            System.out.println("2. Salir");
-            System.out.print("Elija una opcción: ");
-            int opcion = sc.nextInt();
-
-            switch (opcion) {
-                case 1 -> {
-                    AsistenciaMedica asistenciaMedica = new AsistenciaMedica();
-                    System.out.print("Introduzca descripción: ");
-                    String descripcion = sc.next();
-                    asistenciaMedica.setBreveDescripcion(descripcion);
-
-                    System.out.print("Introduzca lugar de la asistencia: ");
-                    String lugar = sc.next();
-                    asistenciaMedica.setLugar(lugar);
-
-                    asistenciaMedica.setSeguro(seguro);
-                    asistenciasMedicas.add(asistenciaMedica);
-                }
-                case 2 -> acceso = false;
-                default -> System.out.println("Introduzca una opción válida");
-            }
-            seguro.setAsistenciasMedicas(asistenciasMedicas);
-        }
-    }
-    private void actualizarSeguro(int idSeguro, Scanner sc) {
-        Seguro seguro = new Seguro(idSeguro);
-        Session sesion = sf.openSession();
-        sesion.beginTransaction();
-
-        System.out.print("Introduzca el NIF: ");
-        String nif = sc.next();
-        //seguro.setNif(nif);
-
-        System.out.print("Introduzca el nombre de pila: ");
-        String nombre = sc.next();
-        seguro.setNombre(nombre);
-
-        System.out.print("Introduzca primer apellido: ");
-        String ape1 = sc.next();
-        seguro.setApe1(ape1);
-
-        System.out.print("Introduzca segundo apellido: ");
-        String ape2 = sc.next();
-        seguro.setApe2(ape2);
-
-        System.out.print("Introduzca la edad: ");
-        int edad = sc.nextInt();
-        seguro.setEdad(edad);
-
-        System.out.print("Introduzca el número de hijos: ");
-        int numHijos = sc.nextInt();
-        seguro.setNumHijos(numHijos);
-
-
-        sesion.merge(seguro);
-        sesion.getTransaction().commit();
-        sesion.close();
-    }
-    private void borrarSeguro(int idSeguro) {
-        Session sesion = sf.openSession();
-        Seguro seguro = new Seguro();
-        seguro.setIdSeguro(idSeguro);
-        sesion.beginTransaction();
-
-        sesion.remove(seguro);
-
-        sesion.getTransaction().commit();
         sesion.close();
     }
     public void datosEjemplo() throws ParseException {

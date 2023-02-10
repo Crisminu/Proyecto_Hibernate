@@ -1,4 +1,4 @@
-package es.cristina.hib1jdbc;
+package es.cristina.Introduccion;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class PersistenciaSeguro {
 
     //Insertará el seguro en la base de datos
     public void insertSeguro(Seguro seguro, Connection conn) throws IOException, SQLException {
-        //insertamos una nueva playlist
+        //insertamos una nuevo seguro
 
         String sqlFinal = "INSERT INTO seguro(nif, nombre, ape1, ape2, edad, fechaCreacion, numHijos) VALUES(?,?,?,?,?,?,?)";
         PreparedStatement pstmt = conn.prepareStatement(sqlFinal);
@@ -124,7 +124,7 @@ public class PersistenciaSeguro {
             ape1 = teclado.readLine();
             pstmt.setString(3,ape1);
             //
-            System.out.println("Segundo Aoellido: ");
+            System.out.println("Segundo Apellido: ");
             ape2 = teclado.readLine();
             pstmt.setString(4,ape2);
             //
@@ -146,10 +146,11 @@ public class PersistenciaSeguro {
     }
     //Borrará de la base de datos el seguro cuya clave primaria sea idSeguro
     public void deleteSeguro(int idSeguro, Connection conn) throws SQLException {
-        BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
         String sql = "DELETE FROM seguro WHERE idSeguro = ?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1,idSeguro);
+        pstmt.executeUpdate();
+        pstmt.close();
         System.out.println("Seguro borrado");
     }
 }

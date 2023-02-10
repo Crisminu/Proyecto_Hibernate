@@ -1,19 +1,30 @@
-package es.cristina.hib3;
+package es.cristina.hib4;
 
-import java.util.List;
+import jakarta.persistence.*;
 
-public class AsistenciaMedica {
+import java.io.Serializable;
+
+@Entity
+@Table(name = "asistenciamedica")
+public class AsistenciaMedica implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idAsistenciaMedica")
     private int idAsistenciaMedica;
+    @ManyToOne
+    @JoinColumn(name = "idSeguro")
     private Seguro seguro;
-    String breveDescripcion;
-    String lugar;
-    private List<Seguro> seguros;
+    private String breveDescripcion;
+    private String lugar;
 
     public AsistenciaMedica(int idAsistenciaMedica, Seguro seguro, String breveDescripcion, String lugar) {
         this.idAsistenciaMedica = idAsistenciaMedica;
         this.seguro = seguro;
         this.breveDescripcion = breveDescripcion;
         this.lugar = lugar;
+    }
+    public AsistenciaMedica(){
+
     }
 
     public int getIdAsistenciaMedica() {

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="es.cristina.hib3.Seguro" table="seguro" >
+        <id column="idSeguro" name="idSeguro" type="integer">
+            <generator class="increment"/>
+        </id>
+        <property name="nif"/>
+        <property name="nombre"/>
+        <property name="ape1"/>
+        <property name="ape2"/>
+        <property name="edad"/>
+        <property name="numHijos"/>
+        <property name="fechaCreacion"/>
+        <list name="asistenciasMedicas"  cascade="all" inverse="false">
+                <key>
+                       <column name="idSeguro"  />
+                </key>
+                <list-index>
+                    <column name="idx"/>
+                </list-index>
+            <one-to-many class="es.cristina.hib3.AsistenciaMedica" />
+        </list>
+    </class>
+</hibernate-mapping>

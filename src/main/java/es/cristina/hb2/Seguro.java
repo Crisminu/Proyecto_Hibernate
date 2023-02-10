@@ -1,4 +1,4 @@
-package es.cristina.hb1;
+package es.cristina.hb2;
 
 import jakarta.persistence.*;
 
@@ -9,22 +9,30 @@ import java.sql.Date;
 @Table(name = "seguro")
 public class Seguro implements Serializable {
     @Id
-    @Column(name = "idSeguro", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idSeguro")
     private int idSeguro;
-    @Column(name = "edad", nullable = false)
+
     private int edad;
-    @Column(name = "numHijos", nullable = false)
+
     private int numHijos;
-    @Column(name = "nif", nullable = false)
+
     private String nif;
-    @Column(name = "nombre", nullable = false)
+
     private String nombre;
-    @Column(name = "ape1", nullable = false)
+
     private String ape1;
-    @Column(name = "ape2", nullable = false)
+
     private String ape2;
-    @Column(name = "fechaCreacion", nullable = false)
+
     private Date fechaCreacion;
+
+    public Seguro(int idSeguro) {
+        this.idSeguro = idSeguro;
+    }
+    public Seguro(){
+
+    }
 
     public int getIdSeguro() {
         return idSeguro;

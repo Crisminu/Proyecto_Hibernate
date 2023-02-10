@@ -1,4 +1,4 @@
-package es.cristina.hib1jdbc;
+package es.cristina.Introduccion;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -21,7 +21,7 @@ public class Main {
             System.out.println("Conectado a la base de datos");
             //Menú para los distintos métodos
             while (acceso) {
-                System.out.println("Seleccione una opción");
+                System.out.println("Act. 0 Introduccion con jdbc.\nSeleccione una opción del CRUD con jdbc");
                 System.out.println("1. Crear Seguro");
                 System.out.println("2. Leer Seguro");
                 System.out.println("3. Actualizar Seguro");

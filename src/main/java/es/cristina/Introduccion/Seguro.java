@@ -1,4 +1,4 @@
-package es.cristina.hib1jdbc;
+package es.cristina.Introduccion;
 
 import java.sql.Date;
 
